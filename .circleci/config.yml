@@ -1,0 +1,35 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.1.0
+  jq: circleci/jq@2.2.0
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/node:14.21.1
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+          override-ci-command: yarn install # --frozen-lockfile --verbose
+      - run: |
+              PR_NUMBER=$(echo "$CIRCLE_PULL_REQUEST" | sed "s/.*\/pull\///")
+              echo "PR_NUMBER: $PR_NUMBER"
+              API_GITHUB="https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
+              PR_REQUEST_URL="$API_GITHUB/pulls/$PR_NUMBER"
+              echo "PR_REQUEST_URL: $PR_REQUEST_URL"
+              PR_RESPONSE=$(curl -H "Authorization: token $GITHUB_TOKEN" "$PR_REQUEST_URL")
+              echo "PR_RESPONSE: $PR_RESPONSE"
+              PR_BASE_BRANCH=$(echo $PR_RESPONSE | jq -e '.base.ref' | tr -d '"')
+              echo "PR_BASE_BRANCH: $PR_BASE_BRANCH"
+              echo "export GITHUB_PR_BASE_BRANCH='$PR_BASE_BRANCH'" >> $BASH_ENV
+      - run: node node_modules/.bin/react-scripts test --runInBand --logHeapUsage
+      - run: |
+            MODIFIED_JS_TS_FILES=`git diff --name-only origin/$GITHUB_PR_BASE_BRANCH $CIRCLE_BRANCH | grep -E '\.(js|jsx|ts|tsx)$'`
+            echo $MODIFIED_JS_TS_FILES
+            yarn run lint $MODIFIED_JS_TS_FILES
+      - run: yarn run typescriptcheck
+workflows:
+    build-and-test:
+      jobs:
+        - build-and-test

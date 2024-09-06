@@ -1,0 +1,27 @@
+.DateRangePicker_picker {
+    z-index: 999;
+}
+
+.DateInput_input__focused {
+    border-bottom: 2px solid #286DCB;
+}
+
+.CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover {
+    background: #2D9CDB;
+    border: 1px double #2D9CDB;
+}
+
+.CalendarDay__selected_span {
+    background: #56CCF2;
+    border: 1px double #52c2e7;
+}
+
+.CalendarDay__selected_span:active, .CalendarDay__selected_span:hover {
+    background: #37acf0;
+    border: 1px double #35a5e6;
+}
+
+.CalendarDay__hovered_span, .CalendarDay__hovered_span:hover {
+    background: rgba(82, 95, 129, 0.05);
+    border: 1px double rgba(82, 95, 129, 0.12);
+}

@@ -1,0 +1,8 @@
+/* Tooltip title */
+.product-radar-chart-tooltip > div:first-child > div:first-child {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    color: #3B455E !important;
+    letter-spacing: 0px !important;
+}

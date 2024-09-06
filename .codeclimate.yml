@@ -1,0 +1,17 @@
+version: '2'
+checks:
+  argument-count:
+    config:
+      threshold: 7
+  method-lines:
+    enabled: true
+    config:
+      threshold: 250
+  file-lines:
+    config:
+      threshold: 250
+  similar-code:
+    config:
+      threshold: 60
+exclude_patterns:
+  - '**/*.test.*'

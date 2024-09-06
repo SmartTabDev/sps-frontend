@@ -1,0 +1,12 @@
+.slide-out-container-sticky {
+    right: 25px;
+}
+
+.slide-out-container-stuck {
+    right: 0px;
+    bottom: 50px !important;
+}
+
+.slide-out-container-parent {
+    margin-top: 0px !important;
+}

@@ -1,0 +1,8 @@
+{
+    "baseUrl": "http://localhost:3000",
+    "blockHosts": ["*.google-analytics.com", "*.hotjar.com"],
+    "env": {
+        "REACT_APP_AUTH_API": "https://69hoa868s3.execute-api.eu-west-1.amazonaws.com/staging",
+        "REACT_APP_CONFIG_API": "https://7xoxhzaxg2.execute-api.eu-west-1.amazonaws.com/staging"
+    }
+}
